@@ -12,7 +12,7 @@
 - ⚡ Fun fact: I Sing, Rap and Paint and I'm a Part-Time Rock Show Radio Host
 - Current location: 📍 Nairobi, Kenya
 
-🌎 Check out my [portfolio](https://my-react-resume.vercel.app/)
+🌎 Check out my [portfolio](https://skylar-lorena.github.io/automatic-garbanzo/)
 
 I'm always working on something, and often too excited about it to stop and update my portfolio
 
