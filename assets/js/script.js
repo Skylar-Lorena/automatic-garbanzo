@@ -1,135 +1,183 @@
-'use strict';
+// Core functionality for navigation, sidebar, modals, and filtering
 
-// element toggle function
-const toggleElementClass = function (element) {
-  element.classList.toggle("active");
-}
+// ============================================
+// Navigation - Switch between pages
+// ============================================
+const navigationLinks = document.querySelectorAll('[data-nav-link]');
+const pages = document.querySelectorAll('[data-page]');
 
-// sidebar variables
-const sidebarElement = document.querySelector("[data-sidebar]");
-const sidebarToggleButton = document.querySelector("[data-sidebar-btn]");
-
-// sidebar toggle functionality for mobile
-sidebarToggleButton.addEventListener("click", function () {
-  toggleElementClass(sidebarElement);
+navigationLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        const pageName = this.dataset.navLink;
+        
+        // Remove active class from all nav links
+        navigationLinks.forEach(link => link.classList.remove('active'));
+        // Add active class to clicked link
+        this.classList.add('active');
+        
+        // Hide all pages
+        pages.forEach(page => page.classList.remove('active'));
+        // Show the target page
+        const targetPage = document.querySelector(`[data-page="${pageName}"]`);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+    });
 });
 
-// testimonials variables
-const testimonialsItems = document.querySelectorAll("[data-testimonials-item]");
-const modalContainerElement = document.querySelector("[data-modal-container]");
-const modalCloseButton = document.querySelector("[data-modal-close-btn]");
-const overlayElement = document.querySelector("[data-overlay]");
+// ============================================
+// Sidebar - Toggle contacts visibility
+// ============================================
+const sidebar = document.querySelector('[data-sidebar]');
+const sidebarBtn = document.querySelector('[data-sidebar-btn]');
 
-// modal variable
-const modalImage = document.querySelector("[data-modal-img]");
-const modalTitleElement = document.querySelector("[data-modal-title]");
-const modalTextElement = document.querySelector("[data-modal-text]");
-
-// modal toggle function
-const toggleTestimonialsModal = function () {
-  modalContainerElement.classList.toggle("active");
-  overlayElement.classList.toggle("active");
+if (sidebarBtn) {
+    sidebarBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
 }
 
-// add click event to all modal items
-for (let i = 0; i < testimonialsItems.length; i++) {
-  testimonialsItems[i].addEventListener("click", function () {
-    modalImage.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImage.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitleElement.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalTextElement.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+// ============================================
+// Testimonials Modal
+// ============================================
+const testimonialItems = document.querySelectorAll('[data-testimonials-item]');
+const modalContainer = document.querySelector('[data-modal-container]');
+const modalCloseBtn = document.querySelector('[data-modal-close-btn]');
+const overlay = document.querySelector('[data-overlay]');
+const modalImg = document.querySelector('[data-modal-img]');
+const modalTitle = document.querySelector('[data-modal-title]');
+const modalText = document.querySelector('[data-modal-text]');
 
-    toggleTestimonialsModal();
-  });
-}
+// Function to open modal
+const openModal = (item) => {
+    const img = item.querySelector('[data-testimonials-avatar]');
+    const title = item.querySelector('[data-testimonials-title]');
+    const text = item.querySelector('[data-testimonials-text]');
+    
+    if (modalImg) modalImg.src = img ? img.src : './assets/images/avatar-1.png';
+    if (modalTitle) modalTitle.textContent = title ? title.textContent : 'Testimonial';
+    if (modalText) modalText.innerHTML = text ? text.innerHTML : '<p>Testimonial content goes here.</p>';
+    
+    if (modalContainer) modalContainer.classList.add('active');
+};
 
-// add click event to modal close button
-modalCloseButton.addEventListener("click", toggleTestimonialsModal);
-overlayElement.addEventListener("click", toggleTestimonialsModal);
+// Function to close modal
+const closeModal = () => {
+    if (modalContainer) modalContainer.classList.remove('active');
+};
 
-// custom select variables
-const selectElement = document.querySelector("[data-select]");
-const selectItemsElements = document.querySelectorAll("[data-select-item]");
-const selectValueElement = document.querySelector("[data-select-value]");
-const filterButtons = document.querySelectorAll("[data-filter-btn]");
-
-selectElement.addEventListener("click", function () {
-  toggleElementClass(this);
+// Add click listeners to testimonial items
+testimonialItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+        // Don't open modal if clicking on the testimonial itself (use the card)
+        if (e.target.closest('.testimonials-item')) {
+            openModal(this);
+        }
+    });
 });
 
-// add event in all select items
-for (let i = 0; i < selectItemsElements.length; i++) {
-  selectItemsElements[i].addEventListener("click", function () {
-    let selectedValue = this.innerText.toLowerCase();
-    selectValueElement.innerText = this.innerText;
-    toggleElementClass(selectElement);
-    filterItemsByCategory(selectedValue);
-  });
-}
+// Close modal events
+if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+if (overlay) overlay.addEventListener('click', closeModal);
 
-// filter variables
-const filterableItems = document.querySelectorAll("[data-filter-item]");
-
-const filterItemsByCategory = function (selectedValue) {
-  for (let i = 0; i < filterableItems.length; i++) {
-    if (selectedValue === "all") {
-      filterableItems[i].classList.add("active");
-    } else if (selectedValue === filterableItems[i].dataset.category) {
-      filterableItems[i].classList.add("active");
-    } else {
-      filterableItems[i].classList.remove("active");
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalContainer && modalContainer.classList.contains('active')) {
+        closeModal();
     }
-  }
+});
+
+// ============================================
+// Portfolio Filter
+// ============================================
+const filterButtons = document.querySelectorAll('[data-filter-btn]');
+const filterSelect = document.querySelector('[data-select]');
+const selectItems = document.querySelectorAll('[data-select-item]');
+const selectValue = document.querySelector('[data-select-value]');
+const projectItems = document.querySelectorAll('[data-filter-item]');
+
+// Filter function
+const filterProjects = (category) => {
+    projectItems.forEach(item => {
+        const itemCategory = item.dataset.category;
+        if (category === 'All' || category === itemCategory) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+};
+
+// Filter button click
+filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const category = this.textContent.trim();
+        
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update select value
+        if (selectValue) selectValue.textContent = category;
+        
+        // Filter projects
+        filterProjects(category);
+    });
+});
+
+// Filter select dropdown
+if (filterSelect) {
+    filterSelect.addEventListener('click', function() {
+        const list = this.nextElementSibling;
+        if (list) list.classList.toggle('active');
+    });
 }
 
-// add event in all filter button items for large screen
-let lastActiveFilterButton = filterButtons[0];
+// Select item click
+selectItems.forEach(item => {
+    item.addEventListener('click', function() {
+        const category = this.textContent.trim();
+        
+        // Update select value
+        if (selectValue) selectValue.textContent = category;
+        
+        // Update active filter button
+        filterButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.textContent.trim() === category) {
+                btn.classList.add('active');
+            }
+        });
+        
+        // Filter projects
+        filterProjects(category);
+        
+        // Close dropdown
+        const list = this.closest('.select-list');
+        if (list) list.classList.remove('active');
+    });
+});
 
-for (let i = 0; i < filterButtons.length; i++) {
-  filterButtons[i].addEventListener("click", function () {
-    let selectedValue = this.innerText.toLowerCase();
-    selectValueElement.innerText = this.innerText;
-    filterItemsByCategory(selectedValue);
-
-    lastActiveFilterButton.classList.remove("active");
-    this.classList.add("active");
-    lastActiveFilterButton = this;
-  });
-}
-
-// contact form variables
-const contactForm = document.querySelector("[data-form]");
-const formInputElements = document.querySelectorAll("[data-form-input]");
-const formSubmitButton = document.querySelector("[data-form-btn]");
-
-// add event to all form input fields
-for (let i = 0; i < formInputElements.length; i++) {
-  formInputElements[i].addEventListener("input", function () {
-    // check form validation
-    if (contactForm.checkValidity()) {
-      formSubmitButton.removeAttribute("disabled");
-    } else {
-      formSubmitButton.setAttribute("disabled", "");
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.filter-select-box')) {
+        const lists = document.querySelectorAll('.select-list');
+        lists.forEach(list => list.classList.remove('active'));
     }
-  });
-}
+});
 
-// page navigation variables
-const navLinks = document.querySelectorAll("[data-nav-link]");
-const pageElements = document.querySelectorAll("[data-page]");
+// ============================================
+// Contact Form - Auto-populate data attributes
+// ============================================
+const formInputs = document.querySelectorAll('[data-form-input]');
 
-// add event to all nav links
-for (let i = 0; i < navLinks.length; i++) {
-  navLinks[i].addEventListener("click", function () {
-    for (let j = 0; j < pageElements.length; j++) {
-      if (this.innerHTML.toLowerCase() === pageElements[j].dataset.page) {
-        pageElements[j].classList.add("active");
-        navLinks[j].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pageElements[j].classList.remove("active");
-        navLinks[j].classList.remove("active");
-      }
-    }
-  });
-}
+// Add validation styles on blur
+formInputs.forEach(input => {
+    input.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+            this.style.borderColor = 'red';
+        } else {
+            this.style.borderColor = 'var(--orange-yellow-crayola)';
+        }
+    });
+});

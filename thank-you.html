@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You | Lorenah M.</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon" />
+
+    <!-- custom css link -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- google font & icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* Additional styles for thank you page */
+        .thank-you-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-gradient-onyx);
+            padding: 20px;
+        }
+
+        .thank-you-card {
+            background: var(--eerie-black-2);
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--jet);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you-icon {
+            font-size: 80px;
+            color: var(--orange-yellow-crayola);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .thank-you-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--white-1);
+            margin-bottom: 15px;
+        }
+
+        .thank-you-message {
+            color: var(--light-gray-70);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .thank-you-message strong {
+            color: var(--orange-yellow-crayola);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--orange-yellow-crayola);
+            color: var(--eerie-black-2);
+            padding: 14px 35px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background: var(--white-1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 165, 0, 0.3);
+        }
+
+        .btn-back ion-icon {
+            font-size: 18px;
+        }
+
+        .social-links-thankyou {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links-thankyou a {
+            color: var(--light-gray-70);
+            font-size: 22px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            padding: 8px;
+            border-radius: 50%;
+            background: var(--jet);
+        }
+
+        .social-links-thankyou a:hover {
+            color: var(--orange-yellow-crayola);
+            transform: translateY(-3px);
+            background: var(--onyx);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .thank-you-card {
+                padding: 35px 20px;
+            }
+            .thank-you-title {
+                font-size: 26px;
+            }
+            .thank-you-icon {
+                font-size: 60px;
+            }
+            .btn-back {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="thank-you-container">
+        <div class="thank-you-card">
+            <!-- Success Icon -->
+            <ion-icon name="checkmark-circle-outline" class="thank-you-icon"></ion-icon>
+
+            <!-- Title -->
+            <h1 class="thank-you-title">Thank You!</h1>
+
+            <!-- Message -->
+            <p class="thank-you-message">
+                Your message has been sent successfully to 
+                <strong>Lorenah M.</strong>
+                <br /><br />
+                I appreciate you reaching out and will get back to you 
+                <strong>within 24-48 hours</strong>.
+                <br /><br />
+                In the meantime, feel free to connect with me on social media or 
+                check out my latest work.
+            </p>
+
+            <!-- Back to Portfolio Button -->
+            <a href="index.html" class="btn-back">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+                Back to Portfolio
+            </a>
+
+            <!-- Social Links -->
+            <div class="social-links-thankyou">
+                <a href="https://www.linkedin.com/in/lorenah-m-859883167/" target="_blank" rel="noopener noreferrer">
+                    <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+                <a href="https://github.com/Skylar-Lorena" target="_blank" rel="noopener noreferrer">
+                    <ion-icon name="logo-github"></ion-icon>
+                </a>
+                <a href="https://x.com/Skylar_Lorena" target="_blank" rel="noopener noreferrer">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+                <a href="https://medium.com/@skylar_lorena" target="_blank" rel="noopener noreferrer">
+                    <ion-icon name="logo-medium"></ion-icon>
+                </a>
+                <a href="https://www.youtube.com/@skylar_lorena" target="_blank" rel="noopener noreferrer">
+                    <ion-icon name="logo-youtube"></ion-icon>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</body>
+
+</html>

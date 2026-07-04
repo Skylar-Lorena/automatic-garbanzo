@@ -1,19 +1,4 @@
-/*-----------------------------------*\
-  #style.css
-\*-----------------------------------*/
 
-
-/**
- * copyright 2022 @codewithsadee
- */
-
-
-
-
-
-/*-----------------------------------*\
-  #CUSTOM PROPERTY
-\*-----------------------------------*/
 
 :root {
 
@@ -499,6 +484,7 @@ main {
     left: 0;
     width: 100%;
     background: hsla(240, 1%, 17%, 0.75);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid var(--jet);
     border-radius: 12px 12px 0 0;
@@ -927,6 +913,7 @@ main {
 
 .skills-list {
     padding: 20px;
+   
 }
 
 
@@ -1605,6 +1592,7 @@ textarea.form-input::-webkit-resizer {
     .content-card {
         padding: 30px;
         padding-top: 25px;
+        background-color: yellow;
     }
 
     .testimonials-avatar-box {
